@@ -1,26 +1,44 @@
 {
-    "students": [
-        {
-            "id": 1,
-            "name": "Nguyen Tuan Anh",
-            "age": 30,
-            "class": 1
-        },
-        {
-            "id": 2,
-            "name": "Pham Hoang Nguyen",
-            "age": 25,
-            "class": 1
-        },
-        {
-            "id": 3,
-            "name": "Tran Hong Hanh",
-            "age": 21,
-            "class": 2
-        }
-    ],
-    "classes": [
-        {"id": 1, "name": "SE1831"},
-        {"id": 2, "name": "SE1832"}
-    ]
+  "students": [
+    {
+      "id": 1,
+      "name": "Nguyen Tuan Anh",
+      "age": 30,
+      "class": 1
+    },
+    {
+      "id": 2,
+      "name": "Pham Hoang Nguyen",
+      "age": 25,
+      "class": 1
+    },
+    {
+      "id": 3,
+      "name": "Tran Hong Hanh",
+      "age": 21,
+      "class": 2
+    },
+    {
+      "name": "Bùi Hải Nam",
+      "age": 25,
+      "class": 2,
+      "id": 4
+    },
+    {
+      "name": "Trần Hồng Tươi",
+      "age": 21,
+      "class": 1,
+      "id": 5
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "name": "SE1831"
+    },
+    {
+      "id": 2,
+      "name": "SE1832"
+    }
+  ]
 }

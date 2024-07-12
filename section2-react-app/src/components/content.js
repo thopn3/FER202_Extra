@@ -5,12 +5,19 @@ import {Link} from "react-router-dom";
 export default function Content() {
     const [students, setStudents] = useState([]);
     const [classes, setClasses] = useState([]);
+    const [classId, setClassId] = useState(null);
 
     useEffect(() => {
         // Call API at end-point: http://localhost:9999/students
         fetch("http://localhost:9999/students")
             .then(res => res.json())
-            .then(result => setStudents(result))
+            .then(result => {
+                if(classId){
+                    setStudents(result.filter(s => s.class == classId));
+                }else{
+                    setStudents(result);
+                }
+            })
             .catch(err => console.log(err));
 
         // Call API at end-point: http://localhost:9999/classes
@@ -19,7 +26,23 @@ export default function Content() {
             .then(result => setClasses(result))
             .catch(err => console.log(err));
 
-    }, []);
+    }, [classId]);
+
+
+    // Delete a student
+    function handleDelete(studentId){
+        if(window.confirm("Do you want to delete?")){
+            fetch("http://localhost:9999/students/"+studentId, {
+                method: "DELETE"
+            })
+                .then(res => res.json())
+                .then(() => {
+                    alert("Delete success");
+                    window.location.reload();
+                })
+                .catch(() => alert("Delete failse"));
+        }
+    }
 
     return (
         <Row>
@@ -32,7 +55,7 @@ export default function Content() {
                     </Row>
                     <Row className="mt-3 mb-3">
                         <Col>
-                            <a href="#">Add new a Student</a>
+                            <Link to={"/student/add"}>Add new a Student</Link>
                         </Col>
                     </Row>
                     <Row>
@@ -50,7 +73,7 @@ export default function Content() {
                                 <tbody>
                                     {
                                         students?.map(s => (
-                                            <tr>
+                                            <tr key={s?.id}>
                                                 <td>{s?.id}</td>
                                                 <td>{s?.name}</td>
                                                 <td>{s?.age}</td>
@@ -63,7 +86,9 @@ export default function Content() {
                                                     <a href="#">Edit</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#">Delete</a>
+                                                    <Link to={"/"} onClick={()=>handleDelete(s?.id)}>
+                                                        Delete
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         ))
@@ -79,8 +104,11 @@ export default function Content() {
                 <ul>
                     {
                         classes?.map(c => 
-                            <li key={c.id} value={c.id}>
-                                <a href="#">{c.name}</a>
+                            <li key={c.id}>
+                                <Link to="/" 
+                                    onClick={ ()=>setClassId(c.id) }>
+                                    {c.name}
+                                </Link>
                             </li>
                         )
                     }
